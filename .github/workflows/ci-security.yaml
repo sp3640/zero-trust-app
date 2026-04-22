@@ -40,6 +40,7 @@ jobs:
         if: always()
         with:
           sarif_file: trivy-fs.sarif
+          category: trivy-fs
 
       # ── 2. Build image ───────────────────────────────────────────────────
       - name: Set up Docker Buildx
@@ -83,11 +84,12 @@ jobs:
           format: sarif
           output: trivy-image.sarif
 
-      - name: Upload image scan results to GitHub Security tab
+     - name: Upload image scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
         if: always()
         with:
           sarif_file: trivy-image.sarif
+          category: trivy-image
 
       # ── 4. Generate SBOM ─────────────────────────────────────────────────
       - name: Install Syft
